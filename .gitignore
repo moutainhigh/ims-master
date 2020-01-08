@@ -1,0 +1,4 @@
+# Project exclude paths
+/ims-common/target/
+/ims-server/ims-server-dbs/ims-server-dbs-interface/target/
+/ims-server/ims-server-dbs/ims-server-dbs-service/target/
