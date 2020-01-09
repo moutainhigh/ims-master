@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ims.iml" filepath="$PROJECT_DIR$/ims.iml" />
       <module fileurl="file://$PROJECT_DIR$/ims-common/ims-common.iml" filepath="$PROJECT_DIR$/ims-common/ims-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ims-eureka-server/ims-eureka-server.iml" filepath="$PROJECT_DIR$/ims-eureka-server/ims-eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/ims-generator/ims-generator.iml" filepath="$PROJECT_DIR$/ims-generator/ims-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/ims-server/ims-server.iml" filepath="$PROJECT_DIR$/ims-server/ims-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/ims-server-api/ims-server-api.iml" filepath="$PROJECT_DIR$/ims-server-api/ims-server-api.iml" />
