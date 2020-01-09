@@ -42,11 +42,14 @@
             <version>auto_1479188381469-20200103</version>
         </dependency>
         -->
+
         <dependency>
             <groupId>com.taobao</groupId>
-            <artifactId>taobao-sdk-java-auto_1479188381469</artifactId>
-            <version>20191205</version>
+            <artifactId>taobao-sdk-java</artifactId>
+            <version>auto_1479188381469-20200103</version>
         </dependency>
+
+
 
     </dependencies>
 
