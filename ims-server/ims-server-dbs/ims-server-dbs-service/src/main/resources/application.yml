@@ -1,6 +1,10 @@
 server:
     port: 8200
 #  context-path: /member
+    server:
+        tomcat:
+            uri-encoding: UTF-8
+
 eureka:
     client:
         serviceUrl:
@@ -25,7 +29,13 @@ spring:
                 max-idle: 10
                 max-active: 100
         timeout: 5000
+    #设置字符集
+    http:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
 jwt:
     config:
-        key: saas-ihrm
+        key: ims-server-dbs-service
         ttl: 3600000
