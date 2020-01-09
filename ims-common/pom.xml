@@ -30,8 +30,6 @@
         <dependency>
             <groupId>com.yianju</groupId>
             <artifactId>ims-commom-model</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
