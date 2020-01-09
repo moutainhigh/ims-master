@@ -12,10 +12,6 @@
     <artifactId>ims-common</artifactId>
     <packaging>jar</packaging>
 
-    <modules>
-        <module>ims-commom-model</module>
-    </modules>
-
     <dependencies>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
