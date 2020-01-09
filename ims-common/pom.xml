@@ -10,7 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ims-common</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
+
     <modules>
         <module>ims-commom-model</module>
     </modules>
