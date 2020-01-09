@@ -7,12 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ims-commom-model" />
         <module name="ims-server-dbs-interface" />
-        <module name="ims-system" />
+        <module name="ims-common" />
+        <module name="ims-server-api" />
         <module name="ims-server-dbs-service" />
         <module name="ims-generator" />
-        <module name="ims-server-api" />
+        <module name="ims-system" />
+        <module name="ims-commom-model" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -31,6 +32,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ims-commom-model" options="-parameters" />
+      <module name="ims-common" options="-parameters" />
       <module name="ims-generator" options="-parameters" />
       <module name="ims-server-api" options="-parameters" />
       <module name="ims-server-dbs-interface" options="-parameters" />
