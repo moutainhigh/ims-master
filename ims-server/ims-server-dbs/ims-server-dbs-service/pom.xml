@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ims-server-dbs-service</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -35,21 +36,11 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
-        <!--
         <dependency>
             <groupId>com.taobao</groupId>
             <artifactId>taobao-sdk-java</artifactId>
             <version>auto_1479188381469-20200103</version>
         </dependency>
-        -->
-
-        <dependency>
-            <groupId>com.taobao</groupId>
-            <artifactId>taobao-sdk-java</artifactId>
-            <version>auto_1479188381469-20200103</version>
-        </dependency>
-
-
 
     </dependencies>
 
