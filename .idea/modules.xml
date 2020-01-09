@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ims.iml" filepath="$PROJECT_DIR$/ims.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ims-common/ims-commom-model/ims-commom-model.iml" filepath="$PROJECT_DIR$/ims-common/ims-commom-model/ims-commom-model.iml" />
       <module fileurl="file://$PROJECT_DIR$/ims-common/ims-common.iml" filepath="$PROJECT_DIR$/ims-common/ims-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/ims-generator/ims-generator.iml" filepath="$PROJECT_DIR$/ims-generator/ims-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/ims-server/ims-server.iml" filepath="$PROJECT_DIR$/ims-server/ims-server.iml" />

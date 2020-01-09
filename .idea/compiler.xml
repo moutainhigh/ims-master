@@ -13,7 +13,6 @@
         <module name="ims-server-dbs-service" />
         <module name="ims-generator" />
         <module name="ims-system" />
-        <module name="ims-commom-model" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
