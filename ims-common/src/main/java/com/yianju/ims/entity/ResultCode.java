@@ -14,16 +14,24 @@ public enum ResultCode {
     SUCCESS(true,10000,"操作成功！"),
     //---系统错误返回码-----
     FAIL(false,10001,"操作失败"),
+
     UNAUTHENTICATED(false,10002,"您还未登录"),
     UNAUTHORISE(false,10003,"权限不足"),
     NOT_FOUND(false,10004,"接口信息不存在"),
     REQUIRED_FEILD(false,10005,"必填项缺失"),
     NO_TOKEN(false,10006,"token信息不存在"),
     INVALID_TOKEN(false,10007,"无效的token信息"),
+    NULL(false,88888,"对象信息不存在"),
     SERVER_ERROR(false,99999,"抱歉，系统繁忙，请稍后重试！"),
 
+
+
     //---用户操作返回码  2xxxx----
-    MOBILEORPASSWORDERROR(false,20001,"用户名或密码错误");
+    MOBILEORPASSWORDERROR(false,20001,"用户名或密码错误"),
+    VALIDATE_NULL(false,20002,"验证字段为NULL"),
+    VALIDATE_BLANK(false,20003,"验证字段为空"),
+    ;
+
 
     //---企业操作返回码  3xxxx----
     //---权限操作返回码----

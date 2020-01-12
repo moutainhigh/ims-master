@@ -5,6 +5,9 @@ import com.yianju.dbs.server.api.ApiTokenServer;
 import com.yianju.dbs.server.entity.ApiToken;
 import com.yianju.dbs.server.entity.BaseResponse;
 import com.yianju.ims.dbs.server.service.impl.BaseServiceImpl;
+import com.yianju.ims.entity.Result;
+import com.yianju.ims.entity.ResultCode;
+import com.yianju.ims.util.BeanPropertyValidateUtil;
 import com.yianju.ims.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -23,19 +26,19 @@ public class TokenServiceImpl extends BaseServiceImpl<ApiToken> implements ApiTo
     private JwtUtil jwtUtil;
 
     @Override
-    public BaseResponse token(JSONObject params) {
+    public Result token(JSONObject params) {
 
         String corpId = params.get("corpId")==null ? null:params.get("corpId").toString();
         String appkey = params.get("appkey")==null ? null:params.get("appkey").toString();
         String appsecret = params.get("appsecret")==null ? null:params.get("appsecret").toString();
         if(StringUtils.isEmpty(corpId)){
-            return new BaseResponse(-1,"corpId不能为空","");
+            return new Result(ResultCode.VALIDATE_BLANK).setData("appsecret不能为空");
         }
         if(StringUtils.isEmpty(appkey)){
-            return new BaseResponse(-1,"appkey不能为空","");
+            return new Result(ResultCode.VALIDATE_BLANK).setData("appsecret不能为空");
         }
         if(StringUtils.isEmpty(appsecret)){
-            return new BaseResponse(-1,"appsecret不能为空","");
+            return new Result(ResultCode.VALIDATE_BLANK).setData("appsecret不能为空");
         }
         ApiToken api = new ApiToken();
         api.setAppkey(appkey);
@@ -44,7 +47,7 @@ public class TokenServiceImpl extends BaseServiceImpl<ApiToken> implements ApiTo
         ApiToken apiTokenFromDb = this.queryOne(api);
 
         if(apiTokenFromDb==null){
-            return new BaseResponse(-1,"无效的appsecret","");
+            return new Result(ResultCode.INVALID_TOKEN);
         }
 
         Map map = new HashMap();
@@ -57,29 +60,39 @@ public class TokenServiceImpl extends BaseServiceImpl<ApiToken> implements ApiTo
         Map dataMap = new HashMap();
         dataMap.put("access_token",jwt);
         dataMap.put("exp",7200);
-        return new BaseResponse(0,"请求成功",dataMap);
+
+        return new Result(ResultCode.SUCCESS).setData(dataMap);
     }
 
     @Override
-    public BaseResponse saveApiToken(ApiToken apiToken) {
+    public Result saveApiToken(ApiToken apiToken) {
+
+        String username = apiToken.getUsername();
+        Result validate = BeanPropertyValidateUtil.getEmptyFields(apiToken, "appkey", "username", "nickname", "mobile");
+        if(!validate.isSuccess()){
+            return validate;
+        }
+
+        // 生成appkey
+
         Integer save = this.save(apiToken);
         if(save<=0){
-            return new BaseResponse(-1,"保存失败",null);
+            return new Result(ResultCode.FAIL);
         }
-        return new BaseResponse(0,"保存成功",null);
+        return new Result(ResultCode.SUCCESS);
     }
 
     @Override
-    public BaseResponse updateApiToken(ApiToken apiToken) {
+    public Result updateApiToken(ApiToken apiToken) {
         Integer update = this.update(apiToken);
         if(update<=0){
-            return new BaseResponse(-1,"更新失败",null);
+            return new Result(ResultCode.FAIL);
         }
-        return new BaseResponse(0,"更新成功",null);
+        return new Result(ResultCode.SUCCESS);
     }
 
     @Override
-    public BaseResponse resetApiToken(ApiToken apiToken) {
+    public Result resetApiToken(ApiToken apiToken) {
         return updateApiToken(apiToken);
     }
 }

@@ -1,0 +1,41 @@
+server:
+    port: 8300
+#  context-path: /member
+    server:
+        tomcat:
+            uri-encoding: UTF-8
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://49.234.66.93:8100/eureka/
+            instance:
+                prefer‐ip‐address: true #可以跨域访问
+spring:
+    application:
+        name: ims-system-service
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://49.234.66.93:3306/ims?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true&useSSL=false
+        username: root
+        password: ab123
+    redis:
+        # host: 49.234.66.93
+        host: localhost
+        port: 6379
+        lettuce:
+            pool:
+                max-wait: 100000
+                max-idle: 10
+                max-active: 100
+        timeout: 5000
+    #设置字符集
+    http:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+jwt:
+    config:
+        key: ims-server
+        ttl: 7200000

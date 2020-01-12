@@ -2,6 +2,7 @@ package com.yianju.ims.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * 数据响应对象
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
  *    }
  */
 @Data
+@Accessors(chain = true)
 @NoArgsConstructor
 public class Result {
 

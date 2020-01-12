@@ -26,5 +26,40 @@ public class ApiToken extends BasePojo {
      */
     private String appsecret;
 
+    /**
+     * 用户名
+     */
+    private String username;
+
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 昵称
+     */
+    private String nickname;
+
+    /**
+     * 手机
+     */
+    private String mobile;
+
+    /**
+     * 邮箱
+     */
+    private String email;
+
+    /**
+     * 关联账号ID
+     */
+    private String linkAccountId;
+
+    /**
+     * 关联账号
+     */
+    private String linkAccountName;
+
 
 }

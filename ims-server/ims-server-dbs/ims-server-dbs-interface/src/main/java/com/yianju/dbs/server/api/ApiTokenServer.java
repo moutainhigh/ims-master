@@ -3,6 +3,7 @@ package com.yianju.dbs.server.api;
 import com.alibaba.fastjson.JSONObject;
 import com.yianju.dbs.server.entity.ApiToken;
 import com.yianju.dbs.server.entity.BaseResponse;
+import com.yianju.ims.entity.Result;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,7 +18,7 @@ public interface ApiTokenServer {
      * @return
      */
     @RequestMapping("/token")
-    public BaseResponse token(@RequestBody JSONObject params);
+    public Result token(@RequestBody JSONObject params);
 
     /**
      * 保存ApiToken信息
@@ -25,7 +26,7 @@ public interface ApiTokenServer {
      * @return
      */
     @RequestMapping("/saveApiToken")
-    public BaseResponse saveApiToken(ApiToken apiToken);
+    public Result saveApiToken(@RequestBody ApiToken apiToken);
 
 
     /**
@@ -34,7 +35,7 @@ public interface ApiTokenServer {
      * @return
      */
     @RequestMapping("/updateApiToken")
-    public BaseResponse updateApiToken(ApiToken apiToken);
+    public Result updateApiToken(@RequestBody ApiToken apiToken);
 
 
     /**
@@ -43,6 +44,6 @@ public interface ApiTokenServer {
      * @return
      */
     @RequestMapping("/resetApiToken")
-    public BaseResponse resetApiToken(ApiToken apiToken);
+    public Result resetApiToken(@RequestBody ApiToken apiToken);
 
 }

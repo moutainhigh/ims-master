@@ -8,12 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ims-server-dbs-interface" />
+        <module name="ims-system-service" />
         <module name="ims-eureka-server" />
         <module name="ims-common" />
+        <module name="ims-system-interface" />
         <module name="ims-server-api" />
         <module name="ims-server-dbs-service" />
         <module name="ims-generator" />
-        <module name="ims-system" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -28,6 +29,8 @@
       <module name="ims-server-dbs-interface" target="1.8" />
       <module name="ims-server-dbs-service" target="1.8" />
       <module name="ims-system" target="1.8" />
+      <module name="ims-system-interface" target="1.8" />
+      <module name="ims-system-service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -40,6 +43,8 @@
       <module name="ims-server-dbs-interface" options="-parameters" />
       <module name="ims-server-dbs-service" options="-parameters" />
       <module name="ims-system" options="-parameters" />
+      <module name="ims-system-interface" options="-parameters" />
+      <module name="ims-system-service" options="-parameters" />
     </option>
   </component>
 </project>
