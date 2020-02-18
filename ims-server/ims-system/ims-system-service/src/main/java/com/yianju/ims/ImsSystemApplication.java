@@ -1,4 +1,4 @@
-package com.yianju.ims.system;
+package com.yianju.ims;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

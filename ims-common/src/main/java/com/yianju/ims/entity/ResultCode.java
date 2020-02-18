@@ -28,8 +28,9 @@ public enum ResultCode {
 
     //---用户操作返回码  2xxxx----
     MOBILEORPASSWORDERROR(false,20001,"用户名或密码错误"),
-    VALIDATE_NULL(false,20002,"验证字段为NULL"),
-    VALIDATE_BLANK(false,20003,"验证字段为空"),
+    VALIFIELD_NULL(false,20002,"验证字段为NULL"),
+    VALIDATA_BLANK(false,20003,"验证字段为空"),
+    VALIBEAN_NULL(false,20004,"验证对象为空"),
     ;
 
 

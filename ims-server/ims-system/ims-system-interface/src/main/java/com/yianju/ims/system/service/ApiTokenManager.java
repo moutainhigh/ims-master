@@ -1,16 +1,15 @@
-package com.yianju.dbs.server.api;
+package com.yianju.ims.system.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.yianju.dbs.server.entity.ApiToken;
-import com.yianju.dbs.server.entity.BaseResponse;
 import com.yianju.ims.entity.Result;
+import com.yianju.ims.system.model.ApiToken;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * token 服务
  */
-public interface ApiTokenServer {
+public interface ApiTokenManager {
 
     /**
      * 获取token

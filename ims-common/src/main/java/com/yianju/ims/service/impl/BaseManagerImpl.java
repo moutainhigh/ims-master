@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yianju.ims.model.BaseModel;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -20,6 +21,10 @@ public class BaseManagerImpl<T extends BaseModel> {
      */
     protected HttpServletRequest request;
     protected HttpServletResponse response;
+    protected String companyId;
+    protected String companyName;
+    protected Claims claims;
+    protected Long userId;
 
     @Autowired
     private BaseMapper<T> mapper;
@@ -87,10 +92,19 @@ public class BaseManagerImpl<T extends BaseModel> {
         record.setCreateTime(new Date());
         record.setModifyTime(record.getModifyTime());
         record.setRecStatus(0);
-        record.setCreator(parseUserId());
-        record.setModifier(parseUserId());
-        record.setCompanyId(parseCompanyId());
-        record.setCompanyName(parseCompanyName());
+        record.setCreator(userId);
+        record.setModifier(userId);
+        record.setCompanyId(companyId);
+        record.setCompanyName(companyName);
+        return this.mapper.insert(record);
+    }
+
+    public Integer saveWithOutCompany(T record) {
+        record.setCreateTime(new Date());
+        record.setModifyTime(record.getModifyTime());
+        record.setRecStatus(0);
+        record.setCreator(userId);
+        record.setModifier(userId);
         return this.mapper.insert(record);
     }
 
@@ -152,23 +166,14 @@ public class BaseManagerImpl<T extends BaseModel> {
     public void setReqAndResp(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
+        Object userClaims = request.getAttribute("user_claims");
+
+        if(userClaims!=null){
+            this.claims = (Claims) userClaims;
+            this.companyId = (String)claims.get("companyId");
+            this.companyName = (String)claims.get("companyName");
+            this.userId = Long.parseLong((String)claims.get("userId"));
+        }
     }
 
-    // 解析企业的ID
-    public String parseCompanyId(){
-        return "1";
-    }
-
-    // 解析企业的名称
-    public String parseCompanyName(){
-        return "蚁安居（天津）网络技术有限公司";
-    }
-
-    /**
-     * 解析用户ID
-     * @return
-     */
-    public Long parseUserId(){
-        return 1L;
-    }
 }

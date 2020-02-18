@@ -52,4 +52,6 @@ public class DbConnection extends BaseModel {
 
     private String password;
 
+    private String color;
+
 }

@@ -1,12 +1,11 @@
-package com.yianju.ims.dbs.server.token;
+package com.yianju.ims.system.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.yianju.dbs.server.api.ApiTokenServer;
-import com.yianju.dbs.server.entity.ApiToken;
-import com.yianju.dbs.server.entity.BaseResponse;
-import com.yianju.ims.dbs.server.service.impl.BaseServiceImpl;
 import com.yianju.ims.entity.Result;
 import com.yianju.ims.entity.ResultCode;
+import com.yianju.ims.service.impl.BaseManagerImpl;
+import com.yianju.ims.system.model.ApiToken;
+import com.yianju.ims.system.service.ApiTokenManager;
 import com.yianju.ims.util.BeanPropertyValidateUtil;
 import com.yianju.ims.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import java.util.Map;
  * token 服务
  */
 @RestController
-public class TokenServiceImpl extends BaseServiceImpl<ApiToken> implements ApiTokenServer {
+public class ApiTokenManagerImpl extends BaseManagerImpl<ApiToken> implements ApiTokenManager {
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -32,13 +31,13 @@ public class TokenServiceImpl extends BaseServiceImpl<ApiToken> implements ApiTo
         String appkey = params.get("appkey")==null ? null:params.get("appkey").toString();
         String appsecret = params.get("appsecret")==null ? null:params.get("appsecret").toString();
         if(StringUtils.isEmpty(corpId)){
-            return new Result(ResultCode.VALIDATE_BLANK).setData("appsecret不能为空");
+            return new Result(ResultCode.VALIFIELD_NULL,"appsecret不能为空");
         }
         if(StringUtils.isEmpty(appkey)){
-            return new Result(ResultCode.VALIDATE_BLANK).setData("appsecret不能为空");
+            return new Result(ResultCode.VALIFIELD_NULL,"appsecret不能为空");
         }
         if(StringUtils.isEmpty(appsecret)){
-            return new Result(ResultCode.VALIDATE_BLANK).setData("appsecret不能为空");
+            return new Result(ResultCode.VALIFIELD_NULL,"appsecret不能为空");
         }
         ApiToken api = new ApiToken();
         api.setAppkey(appkey);

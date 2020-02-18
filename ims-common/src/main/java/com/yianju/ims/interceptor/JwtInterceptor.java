@@ -4,6 +4,7 @@ import com.yianju.ims.entity.ResultCode;
 import com.yianju.ims.exception.CommonException;
 import com.yianju.ims.util.JwtUtil;
 import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * 权限拦截器
  */
 @Component
+@Slf4j
 public class JwtInterceptor extends HandlerInterceptorAdapter {
 
 
@@ -27,6 +29,8 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        log.info(request.getRequestURI());
         // 1.通过request获取请求token信息
         String authorization = request.getHeader("Authorization");
         //判断请求头信息是否为空，或者是否已Bearer开头
@@ -36,7 +40,7 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
             //解析token获取claims
             Claims claims = jwtUtils.parseJwt(token);
             if(claims != null) {
-
+                request.setAttribute("user_claims",claims);
                 return true;
                 // TODO 通过claims获取到当前用户的可访问API权限字符串
                 //String apis = (String) claims.get("apis");  //api-user-delete,api-user-update

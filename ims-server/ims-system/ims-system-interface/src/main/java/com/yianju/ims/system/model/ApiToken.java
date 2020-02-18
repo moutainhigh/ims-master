@@ -1,7 +1,6 @@
-package com.yianju.dbs.server.entity;
+package com.yianju.ims.system.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.yianju.ims.model.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -9,7 +8,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class ApiToken extends BasePojo {
+public class ApiToken extends BaseModel {
 
     /**
      * 企业名称

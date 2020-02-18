@@ -1,7 +1,7 @@
-package com.yianju.ims.dbs.server.mapper;
+package com.yianju.ims.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.yianju.dbs.server.entity.ApiToken;
+import com.yianju.ims.system.model.ApiToken;
 
 /**
  * <p>

@@ -23,7 +23,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageResult<T> {
-    private Long total;
-    private List<T> rows;
+public class PageResult extends Result{
+    private long total;
+    private long pageSize;
+    private long current;
 }

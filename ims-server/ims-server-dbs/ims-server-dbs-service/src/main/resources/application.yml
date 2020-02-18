@@ -37,5 +37,5 @@ spring:
             force: true
 jwt:
     config:
-        key: ims-server-dbs-service
+        key: ims-server
         ttl: 7200000
