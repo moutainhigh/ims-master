@@ -14,7 +14,6 @@
     <modules>
         <module>ims-server-dbs</module>
         <module>ims-system</module>
-        <module>ims-server-container</module>
         <module>ims-server-process</module>
     </modules>
 
