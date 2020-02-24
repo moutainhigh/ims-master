@@ -3,7 +3,7 @@ package com.yianju.ims.dbs.server.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.yianju.dbs.server.api.ApiDataBasesServer;
+import com.yianju.dbs.server.api.ApiDataBasesManager;
 import com.yianju.dbs.server.entity.DbConnection;
 import com.yianju.ims.constant.ImsConst;
 import com.yianju.ims.dbs.server.constant.DBSConstant;
@@ -23,7 +23,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-public class ApiDataBasesBaseManagerImpl extends BaseManagerImpl<DbConnection> implements ApiDataBasesServer {
+public class ApiDataBasesBaseManagerImpl extends BaseManagerImpl<DbConnection> implements ApiDataBasesManager {
 
     @Override
     public Result saveConnection(DbConnection connection) {
@@ -78,23 +78,14 @@ public class ApiDataBasesBaseManagerImpl extends BaseManagerImpl<DbConnection> i
         QueryWrapper<DbConnection> queryWrapper = new  QueryWrapper();
         queryWrapper.eq("rec_status",ImsConst.REC_OK);
         if(search!=null && !"".equals(search)){
-            queryWrapper.eq("name",search);
+            //queryWrapper.eq("name",search);
+            queryWrapper.like("name",search);
         }
         if(dbtype!=null && !"".equals(dbtype)){
             queryWrapper.eq("dbtype",dbtype);
         }
         IPage<DbConnection> dbConnectionIPage = this.queryPageList(queryWrapper, current, pageSize);
-
-
-        PageResult result = new PageResult();
-        result.setData(dbConnectionIPage.getRecords());
-        result.setCurrent(dbConnectionIPage.getCurrent());
-        result.setPageSize(dbConnectionIPage.getSize());
-        result.setTotal(dbConnectionIPage.getTotal());
-        result.setCode(10000);
-        result.setSuccess(true);
-        result.setMessage("请求成功");
-        return result;
+        return this.createPageResult(dbConnectionIPage);
     }
 
     @Override

@@ -14,6 +14,8 @@ public enum ResultCode {
     SUCCESS(true,10000,"操作成功！"),
     //---系统错误返回码-----
     FAIL(false,10001,"操作失败"),
+    ILLEGAL_PROCESS_UNIT(false,10002,"非法处理单元"),
+
 
     UNAUTHENTICATED(false,10002,"您还未登录"),
     UNAUTHORISE(false,10003,"权限不足"),
@@ -31,6 +33,11 @@ public enum ResultCode {
     VALIFIELD_NULL(false,20002,"验证字段为NULL"),
     VALIDATA_BLANK(false,20003,"验证字段为空"),
     VALIBEAN_NULL(false,20004,"验证对象为空"),
+
+
+    // 对接操作错误返回
+    ORDER_ITEM_LIST_NULL(false,80001,"订单商品数据不存在"),
+
     ;
 
 

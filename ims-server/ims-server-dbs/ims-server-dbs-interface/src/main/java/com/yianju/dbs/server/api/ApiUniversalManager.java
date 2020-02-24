@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 万能查询操作
  */
 @RequestMapping("/universal")
-public interface ApiUniversalServer {
+public interface ApiUniversalManager {
 
     @RequestMapping("/query/{service}")
     public BaseResponse query(@PathVariable("service") String service , @RequestBody JSONObject param) throws Exception;

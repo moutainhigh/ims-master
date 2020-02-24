@@ -36,6 +36,7 @@ public class SecurityConfig extends WebMvcConfigurationSupport {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/token")
                 .excludePathPatterns("/login");
+                //.excludePathPatterns("/upload");
     }
 
     @Override

@@ -45,7 +45,7 @@ public class BaseExceptionHandler {
         }else if(e.getClass() == SignatureException.class) {
             return new ResponseEntity<Result>(new Result(ResultCode.INVALID_TOKEN),HttpStatus.UNAUTHORIZED);
         }else{
-            return new ResponseEntity<Result>(new Result(ResultCode.SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Result>(new Result(ResultCode.SERVER_ERROR,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

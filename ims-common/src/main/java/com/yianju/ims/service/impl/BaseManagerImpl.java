@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yianju.ims.entity.PageResult;
 import com.yianju.ims.model.BaseModel;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -174,6 +175,24 @@ public class BaseManagerImpl<T extends BaseModel> {
             this.companyName = (String)claims.get("companyName");
             this.userId = Long.parseLong((String)claims.get("userId"));
         }
+    }
+
+
+    /**
+     * 获取分业信息
+     * @param page
+     * @return
+     */
+    public PageResult createPageResult(IPage page){
+        PageResult result = new PageResult();
+        result.setData(page.getRecords());
+        result.setCurrent(page.getCurrent());
+        result.setPageSize(page.getSize());
+        result.setTotal(page.getTotal());
+        result.setCode(10000);
+        result.setSuccess(true);
+        result.setMessage("请求成功");
+        return result;
     }
 
 }

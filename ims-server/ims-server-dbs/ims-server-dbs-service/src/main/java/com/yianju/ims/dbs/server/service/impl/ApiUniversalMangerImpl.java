@@ -3,7 +3,7 @@ package com.yianju.ims.dbs.server.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.gson.Gson;
-import com.yianju.dbs.server.api.ApiUniversalServer;
+import com.yianju.dbs.server.api.ApiUniversalManager;
 import com.yianju.dbs.server.entity.BaseResponse;
 import com.yianju.dbs.server.entity.DbConnection;
 import com.yianju.dbs.server.entity.InterfaceConfig;
@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 
 @Slf4j
 @RestController
-public class ApiUniversalMangerImpl extends BaseManagerImpl<InterfaceConfig> implements ApiUniversalServer {
+public class ApiUniversalMangerImpl extends BaseManagerImpl<InterfaceConfig> implements ApiUniversalManager {
 
     private static Pattern conditionPattern = Pattern.compile("<<(?:(?!<<).)+?>>", Pattern.DOTALL);
 

@@ -11,6 +11,8 @@ import com.yianju.ims.util.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * 企业服务
  */
@@ -25,6 +27,12 @@ public class CompanyMangerImpl extends BaseManagerImpl<CoCompany> implements Com
 
     @Override
     public Result saveCompany(CoCompany company) {
+
+        CoCompany byName = new CoCompany();
+        byName.setCompanyName(company.getCompanyName());
+        // 企业名称不能重复
+        List<CoCompany> byNameList = this.queryListByWhere(byName);
+
         long l = new IdGenerator().nextId();
         company.setCompanyId(l+"");
         mapper.insert(company);

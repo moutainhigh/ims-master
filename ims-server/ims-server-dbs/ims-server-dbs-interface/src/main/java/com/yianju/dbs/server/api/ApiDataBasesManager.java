@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 数据库服务接口
  */
 @RequestMapping("/apidb")
-public interface ApiDataBasesServer {
+public interface ApiDataBasesManager {
 
     /**
      * 保存连接

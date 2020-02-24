@@ -31,6 +31,11 @@ public class InterfaceConfig extends BaseModel {
     private Long dbConId;
 
     /**
+     * 数据源名称
+     */
+    private String dbConName;
+
+    /**
      * 服务名称
      */
     private String serviceName;
