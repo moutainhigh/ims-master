@@ -1,5 +1,6 @@
 package com.yianju.ims.entity;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -43,6 +44,11 @@ public class Result {
         this.code = code;
         this.message = message;
         this.success = success;
+    }
+
+    @Override
+    public String toString() {
+        return JSONObject.toJSONString(this);
     }
 
     public static Result SUCCESS(){

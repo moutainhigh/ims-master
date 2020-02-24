@@ -6,11 +6,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.yianju.ims.entity.Result;
 import com.yianju.ims.entity.ResultCode;
 import com.yianju.ims.exception.CommonException;
+import com.yianju.ims.process.service.outside.ImsDatabasesService;
 import com.yianju.ims.process.unit.customer.zazj.vo.EoCOrder;
 import com.yianju.ims.process.unit.customer.zazj.vo.EoCOrderItem;
 import com.yianju.ims.server.process.service.core.AbstractProcessUnit;
 import com.yianju.ims.util.HttpXmlClient;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -30,11 +32,14 @@ import java.util.Map;
 public class OrderAccessProcessUnit extends AbstractProcessUnit {
 
 
+    @Autowired
+    private ImsDatabasesService imsDatabasesService;
+
+
     @Override
     public boolean preProcess(JSONObject json) {
 
         // 校验订单接入是否合法
-
         return super.preProcess(json);
     }
 
@@ -82,11 +87,11 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
         // 订单金额 total_amount
         order.setEoorAmount(content.getString("total_amount")==null?0.0:Double.parseDouble(content.getString("total_amount")));
 
+        // 设置客户信息
+        this.setCustomer(order);
+
         // TODO 解析收货人省市区编码
         this.setReceiver(order,content);
-
-
-
 
         this.setSender(order,content);
 
@@ -114,19 +119,23 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
 
         JSONArray orderItemList = content.getJSONArray("order_item_list");
         this.setOrderItems(order,orderItemList);
-
-
-
-
-
-
         return order;
     }
 
     /**
+     * 设置客户信息
+     * @param order 订单
+     */
+    private void setCustomer(EoCOrder order) {
+        // TODO 这个信息需要从登录用户
+        order.setEoorCustomerCode("A0003340");
+        order.setEoorCustomerName("广州至爱智家科技有限公司");
+    }
+
+    /**
      * 设置订单商品明细
-     * @param order
-     * @param orderItemList
+     * @param order 订单
+     * @param orderItemList 订单明细json报文
      */
     private void setOrderItems(EoCOrder order, JSONArray orderItemList) throws CommonException {
 
@@ -144,7 +153,7 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
             throw new CommonException(ResultCode.ORDER_ITEM_LIST_NULL);
         }
 
-        List<EoCOrderItem> items = new ArrayList<EoCOrderItem>();
+        List<EoCOrderItem> items = new ArrayList<>();
 
         for(int i=0;i<orderItemList.size();i++){
             EoCOrderItem item = new EoCOrderItem();
@@ -170,8 +179,8 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
 
     /**
      * 设置发货人信息
-     * @param order
-     * @param content
+     * @param order 订单信息
+     * @param content 报文信息
      */
     private void setSender(EoCOrder order, JSONObject content) {
         // 收货人省 sender_name
@@ -193,14 +202,21 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
 
     /**
      * 设置收货人信息
-     * @param order
-     * @param content
+     * @param order 订单信息
+     * @param content 报文内容
      */
     private void setReceiver(EoCOrder order, JSONObject content) {
         //收货人名称 receiver_name
         order.setEoorConsigneeName(content.getString("receiver_name"));
         // 收货人省 receiver_province
         // TODO
+        JSONObject json = new JSONObject();
+        json.put("type","PLACE_PROVINCE");
+        json.put("name",content.getString("receiver_name"));
+        Result cityCodeQuery = this.imsDatabasesService.query("cityCodeQuery", json);
+        log.info("获得省解析数据为:{}");
+
+
         order.setEoorConsigneeProvinceCode("");
         order.setEoorConsigneeProvinceName(content.getString("receiver_province"));
         // 收货人市 receiver_city
@@ -218,8 +234,8 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
 
     /**
      * JavaBean转换成xml
-     * @param obj
-     * @param encoding
+     * @param obj bean信息
+     * @param encoding 编码格式
      * @return
      */
     private String convertToXml(Object obj, String encoding) {
@@ -238,6 +254,11 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
         return result;
     }
 
+    /**
+     * 发送订单
+     * @param order
+     * @return
+     */
     public String sendOrder(EoCOrder order){
         String url = "http://tscm.51eanj.com:88/module-oms2c/httpServices/MOMSHttpService";
         String xml = convertToXml(order, "UTF-8");
@@ -252,11 +273,9 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
     }
 
 
-
-
     /**
      * 设置订单类型
-     * @param order_type
+     * @param order_type 客户订单类型
      * @return
      */
     private void setOrderType(EoCOrder order,String order_type) {
