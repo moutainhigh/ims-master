@@ -63,9 +63,9 @@ public class UniversalProcessManagerImpl implements UniversalProcessManager {
 
             ProcessUnit unit = (ProcessUnit)instance;
 
-            unit.process(param);
-
             log.info("执行成功");
+            Result process = unit.process(param);
+            return process;
 
 
         }catch (Exception e){

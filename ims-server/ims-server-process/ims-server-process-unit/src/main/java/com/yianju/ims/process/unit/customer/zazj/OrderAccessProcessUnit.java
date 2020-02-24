@@ -45,10 +45,10 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
         EoCOrder eoCOrder = this.parseOrder(params);
 
         log.info("start send order to oms: ");
-        this.sendOrder(eoCOrder);
+        String s = this.sendOrder(eoCOrder);
 
         log.info("完成处理");
-        return null;
+        return new Result(ResultCode.SUCCESS,s);
     }
 
 
@@ -239,16 +239,16 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
     }
 
     public String sendOrder(EoCOrder order){
-        String url = "";
+        String url = "http://tscm.51eanj.com:88/module-oms2c/httpServices/MOMSHttpService";
         String xml = convertToXml(order, "UTF-8");
         String methodName = "newOrderAdd";
         Map<String, String> params = new HashMap<String, String>();
         params.put("methodName", methodName);
         params.put("data", xml);
-        //String post = HttpXmlClient.post(url, params);
+        String post = HttpXmlClient.post(url, params);
         //return post;
         System.out.println(xml);
-        return null;
+        return post;
     }
 
 
@@ -287,10 +287,12 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
                 orderTypeCode = "00";
                 break;
             default:
-                orderTypeCode = "00";
+                orderTypeCode = "PO";
                 break;
         }
 
+        order.setEoorOrderTypeCode(orderTypeCode);
+        order.setEoorDelierySetupType("00");
     }
 
 }
