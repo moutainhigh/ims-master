@@ -1,4 +1,4 @@
-package com.yianju.ims.process.service.outside;
+package com.yianju.ims.server.process.service;
 
 
 import com.alibaba.fastjson.JSONObject;
