@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ims-server-process-unit:jar">
+    <output-path>$PROJECT_DIR$/../jars</output-path>
+    <root id="archive" name="ims-server-process-unit.jar">
+      <element id="module-output" name="ims-server-process-unit" />
+    </root>
+  </artifact>
+</component>

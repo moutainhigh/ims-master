@@ -214,7 +214,7 @@ public class OrderAccessProcessUnit extends AbstractProcessUnit {
         json.put("type","PLACE_PROVINCE");
         json.put("name",content.getString("receiver_name"));
         Result cityCodeQuery = this.imsDatabasesService.query("cityCodeQuery", json);
-        log.info("获得省解析数据为:{}");
+        log.info("获得省解析数据为:{}",cityCodeQuery);
 
 
         order.setEoorConsigneeProvinceCode("");

@@ -7,14 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ims-server-dbs-interface" />
+        <module name="ims-common" />
         <module name="ims-system-service" />
         <module name="ims-eureka-server" />
-        <module name="ims-common" />
+        <module name="ims-server-process-unit" />
+        <module name="ims-server-process-service" />
         <module name="ims-system-interface" />
         <module name="ims-server-api" />
+        <module name="ims-server-dbs-interface" />
         <module name="ims-server-dbs-service" />
         <module name="ims-generator" />
+        <module name="ims-server-process-interface" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,9 +28,15 @@
       <module name="ims-generator" target="7" />
       <module name="ims-server" target="1.8" />
       <module name="ims-server-api" target="1.8" />
+      <module name="ims-server-container" target="1.8" />
+      <module name="ims-server-container-interface" target="1.8" />
       <module name="ims-server-dbs" target="1.8" />
       <module name="ims-server-dbs-interface" target="1.8" />
       <module name="ims-server-dbs-service" target="1.8" />
+      <module name="ims-server-process" target="1.8" />
+      <module name="ims-server-process-interface" target="1.8" />
+      <module name="ims-server-process-service" target="1.8" />
+      <module name="ims-server-process-unit" target="1.8" />
       <module name="ims-system" target="1.8" />
       <module name="ims-system-interface" target="1.8" />
       <module name="ims-system-service" target="1.8" />
@@ -40,8 +49,13 @@
       <module name="ims-eureka-server" options="-parameters" />
       <module name="ims-generator" options="-parameters" />
       <module name="ims-server-api" options="-parameters" />
+      <module name="ims-server-container" options="-parameters" />
+      <module name="ims-server-container-interface" options="-parameters" />
       <module name="ims-server-dbs-interface" options="-parameters" />
       <module name="ims-server-dbs-service" options="-parameters" />
+      <module name="ims-server-process-interface" options="-parameters" />
+      <module name="ims-server-process-service" options="-parameters" />
+      <module name="ims-server-process-unit" options="-parameters" />
       <module name="ims-system" options="-parameters" />
       <module name="ims-system-interface" options="-parameters" />
       <module name="ims-system-service" options="-parameters" />

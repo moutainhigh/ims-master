@@ -13,7 +13,7 @@ eureka:
                 prefer‐ip‐address: true #可以跨域访问
 spring:
     application:
-        name: ims-system-service
+        name: ims-server-process-service
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://49.234.66.93:3306/ims?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true&useSSL=false

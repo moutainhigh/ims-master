@@ -13,6 +13,7 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/ims-common/ims-commom-model/pom.xml" />
+        <option value="$PROJECT_DIR$/ims-server/ims-server-container/pom.xml" />
       </set>
     </option>
   </component>
