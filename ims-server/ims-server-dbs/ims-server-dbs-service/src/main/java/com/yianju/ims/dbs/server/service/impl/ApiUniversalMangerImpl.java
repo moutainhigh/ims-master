@@ -44,8 +44,13 @@ public class ApiUniversalMangerImpl extends BaseManagerImpl<InterfaceConfig> imp
     public BaseResponse query(String service, JSONObject params) throws Exception {
 
         try{
+
+            long start = System.currentTimeMillis();
+
             // 1.通过service获取到数据库连接信息
             InterfaceConfig ic = this.getInterfaceConfig(service);
+            long end = System.currentTimeMillis();
+            log.info("通过service获取到数据库连接信息,耗时：{},{}",end-start,"ms");
 
             // 2.通过数据库连接执行查询SQL
             String sql = ic.getSqlText();
@@ -53,9 +58,13 @@ public class ApiUniversalMangerImpl extends BaseManagerImpl<InterfaceConfig> imp
 
             // 3.获取sql中的参数
             List<String> runSqlParam = this.getRunSqlParam(sql);
+            end = System.currentTimeMillis();
+            log.info("获取sql中的参数,耗时：{},{}",end-start,"ms");
 
             // 4.校验合法性
             Map validate = this.validate(sql, params);
+            end = System.currentTimeMillis();
+            log.info("校验合法性,耗时：{},{}",end-start,"ms");
             boolean success = (boolean) validate.get("success");
             if(!success){
                 //throw  new CommonException(false,10005,"请求失败，必须项："+ validate.get("errorMsg") +"为填写，请检查输入");
@@ -65,6 +74,8 @@ public class ApiUniversalMangerImpl extends BaseManagerImpl<InterfaceConfig> imp
 
             // 5.获得执行sql
             String runSql = this.getRunSql(sql, params).replace("/",":");
+            end = System.currentTimeMillis();
+            log.info("获得执行sql,耗时：{},{}",end-start,"ms");
 
             Object data = getQueryData(ic, runSql, params);
 
@@ -85,20 +96,30 @@ public class ApiUniversalMangerImpl extends BaseManagerImpl<InterfaceConfig> imp
      * @return
      */
     private Object getQueryData(InterfaceConfig interfaceConfig,String sql,Map params){
+
+        long start = System.currentTimeMillis();
         // 1.获得数据源
         DriverManagerDataSource dataSource = this.getDataSource(interfaceConfig);
+        long end = System.currentTimeMillis();
+        log.info("获得执行sql,耗时：{},{}",end-start,"ms");
 
         // 2.获得查询模板
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
+        end = System.currentTimeMillis();
+        log.info("获得查询模板,耗时：{},{}",end-start,"ms");
 
         // 3.执行查询
         List list = template.queryForList(sql, params);
+        end = System.currentTimeMillis();
+        log.info("执行查询,耗时：{},{}",end-start,"ms");
 
         int isRetOne = interfaceConfig.getIsRetOne();
 
         if(isRetOne == 1){
             if(list!=null && list.size()>0){
                 return list.get(0);
+            }else{
+                return new HashMap<>();
             }
         }
 

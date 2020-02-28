@@ -15,7 +15,7 @@ import javax.servlet.annotation.WebListener;
 import java.util.List;
 
 /**
- * 权限拦截器
+ * 权限监听器
  */
 @WebListener
 @Component

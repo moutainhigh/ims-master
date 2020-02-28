@@ -34,6 +34,8 @@ public enum ResultCode {
     VALIDATA_BLANK(false,20003,"验证字段为空"),
     VALIBEAN_NULL(false,20004,"验证对象为空"),
 
+    ORDER_DUPLICATE(false,20005,"单据重复接入"),
+
 
     // 对接操作错误返回
     ORDER_ITEM_LIST_NULL(false,80001,"订单商品数据不存在"),

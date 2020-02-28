@@ -21,4 +21,8 @@ public interface UniversalProcessManager {
     @RequestMapping("/process/{processCode}")
     public Result process(@PathVariable String processCode , @RequestBody JSONObject param);
 
+
+    @RequestMapping("/feighTest/{service}")
+    public Result feighTest(@PathVariable("service") String service,@RequestBody JSONObject param);
+
 }

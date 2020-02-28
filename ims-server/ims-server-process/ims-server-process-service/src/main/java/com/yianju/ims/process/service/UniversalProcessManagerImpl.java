@@ -5,17 +5,23 @@ import com.yianju.ims.entity.Result;
 import com.yianju.ims.entity.ResultCode;
 import com.yianju.ims.exception.CommonException;
 import com.yianju.ims.server.process.model.CfProcessUnit;
+import com.yianju.ims.server.process.service.ImsDatabasesService;
 import com.yianju.ims.server.process.service.ProcessUnitManager;
 import com.yianju.ims.server.process.service.UniversalProcessManager;
+import com.yianju.ims.server.process.service.core.AbstractProcessUnit;
 import com.yianju.ims.server.process.service.core.ProcessUnit;
 import com.yianju.ims.server.process.service.core.dynamic.DynamicClassLoader;
 import com.yianju.ims.server.process.service.core.dynamic.DynamicClassLoaderManager;
+import com.yianju.ims.service.impl.BaseManagerImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -26,7 +32,7 @@ import java.util.Map;
  */
 @RestController
 @Slf4j
-public class UniversalProcessManagerImpl implements UniversalProcessManager {
+public class UniversalProcessManagerImpl extends BaseManagerImpl implements UniversalProcessManager {
 
 
     @Autowired
@@ -35,6 +41,8 @@ public class UniversalProcessManagerImpl implements UniversalProcessManager {
     @Autowired
     private ProcessUnitManager processUnitManager;
 
+    @Autowired
+    private ImsDatabasesService imsDatabasesService;
     /**
      * 动态classLoader容器
      */
@@ -48,31 +56,42 @@ public class UniversalProcessManagerImpl implements UniversalProcessManager {
             CfProcessUnit processUnit = processUnitManager.getByProcessCode(processCode);
 
             // 2.实例化接口
-            Map<String, DynamicClassLoader> classLoaderMap = dynamicClassLoaderManager.getClassLoaderMap();
-            System.out.println(classLoaderMap);
             DynamicClassLoader dynamicClassLoader = dynamicClassLoaderManager.getDynamicClassLoader(processUnit.getProcessCode());
-            System.out.println(dynamicClassLoader);
             clz = dynamicClassLoader.loadClass(processUnit.getStartDriver());
-            // Constructor<?> constructor = clz.getConstructor(String.class);
-            // Object content = constructor.newInstance("content");
             Object instance = clz.newInstance();
             if(!(instance instanceof ProcessUnit)){
                 log.info("非法处理单元，未实现ProcessUnit");
                 throw new CommonException(ResultCode.ILLEGAL_PROCESS_UNIT);
             }
 
+            ServletContext sc = this.request.getServletContext();
+            WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(sc);
+            ImsDatabasesService bean = webApplicationContext.getBean(ImsDatabasesService.class);
+            if(instance instanceof AbstractProcessUnit){
+                AbstractProcessUnit unit = (AbstractProcessUnit)instance;
+                unit.setApplicationContext(webApplicationContext);
+                return unit.process(param);
+            }
             ProcessUnit unit = (ProcessUnit)instance;
-
-            log.info("执行成功");
             Result process = unit.process(param);
+            log.info("执行成功");
             return process;
 
-
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (CommonException e){
+            return new Result(e.getResultCode(),e.getMessage());
+        } catch (IllegalAccessException e) {
+            return new Result(ResultCode.FAIL,e.getMessage());
+        } catch (InstantiationException e) {
+            return new Result(ResultCode.FAIL,e.getMessage());
+        } catch (ClassNotFoundException e) {
+            return new Result(ResultCode.FAIL,e.getMessage());
         }
-
-
-        return null;
     }
+
+    @Override
+    public Result feighTest(String service, JSONObject param) {
+        return imsDatabasesService.query(service,param);
+    }
+
+
 }

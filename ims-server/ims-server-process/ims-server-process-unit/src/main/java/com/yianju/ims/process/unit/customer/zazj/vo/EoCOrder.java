@@ -3438,5 +3438,7 @@ public class EoCOrder extends Order implements Serializable{
 	public void setEoorDebonReceiveDeptCode(String eoorDebonReceiveDeptCode) {
 		this.eoorDebonReceiveDeptCode = eoorDebonReceiveDeptCode;
 	}
+
+
 	
 }
