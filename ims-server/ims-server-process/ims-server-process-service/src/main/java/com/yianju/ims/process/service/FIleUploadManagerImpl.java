@@ -54,7 +54,7 @@ public class FIleUploadManagerImpl implements FIleUploadManager {
             return new Result(ResultCode.FAIL);
         }
 
-        return new Result(ResultCode.SUCCESS,picUrl);
+        return new Result(ResultCode.SUCCESS,path+picUrl);
     }
 
 
