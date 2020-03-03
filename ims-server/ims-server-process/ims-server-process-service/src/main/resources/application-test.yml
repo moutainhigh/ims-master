@@ -12,6 +12,7 @@ eureka:
             instance:
                 prefer‐ip‐address: true #可以跨域访问
 spring:
+    profiles: test
     application:
         name: ims-server-process-service
     datasource:
